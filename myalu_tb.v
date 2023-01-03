@@ -27,10 +27,20 @@ module myalu_tb;
 
     // Outputs
     wire [NUMBITS-1:0] result;
-    reg [NUMBITS-1:0] R;
+    reg [NUMBITS-1:0] expected_result;
     wire carryout;
     wire overflow;
     wire zero;
+
+
+    // -------------------------------------------------------
+    // Setup output file for possible debugging uses
+    // -------------------------------------------------------
+    initial
+    begin
+        $dumpfile("lab01.vcd");
+        $dumpvars(0);
+    end
 
     // -------------------------------------------------------
     // Instantiate the Unit Under Test (UUT)
@@ -47,40 +57,43 @@ module myalu_tb;
         .zero(zero)
     );
 
-      initial begin 
+    initial begin 
     
-     clk = 0; reset = 1; #50; 
-     clk = 1; reset = 1; #50; 
-     clk = 0; reset = 0; #50; 
-     clk = 1; reset = 0; #50; 
+        clk = 0; reset = 1; #50; 
+        clk = 1; reset = 1; #50; 
+        clk = 0; reset = 0; #50; 
+        clk = 1; reset = 0; #50; 
          
-     forever begin 
-        clk = ~clk; #50; 
-     end 
-     
+        forever begin 
+            clk = ~clk; #50; 
+        end 
     end 
     
     integer totalTests = 0;
     integer failedTests = 0;
+    
     initial begin // Test suite
         // Reset
         @(negedge reset); // Wait for reset to be released (from another initial block)
-        @(posedge clk); // Wait for first clock out of reset 
-        #10; // Wait 
+        @(posedge clk);   // Wait for first clock out of reset 
+        #10; // Wait 10 cycles 
 
         // Additional test cases
         // ---------------------------------------------
         // Testing unsigned additions 
         // --------------------------------------------- 
         $write("Test Group 1: Testing unsigned additions ... \n");
-        opcode = 3'b000; 
+        opcode = 3'b000;
+
+        // Code necessary for each test case 
         totalTests = totalTests + 1;
         $write("\tTest Case 1.1: Unsigned Add ... ");
         A = 8'hFF;
-           B = 8'h01;
-        R = 8'h00; 
+        B = 8'h01;
+        expected_result = 8'h00;
+
         #100; // Wait 
-        if (R != result || zero != 1'b1 || carryout != 1'b1) begin
+        if (expected_result !== result || zero !== 1'b1 || carryout !== 1'b1) begin
             $write("failed\n");
             failedTests = failedTests + 1;
         end else begin
