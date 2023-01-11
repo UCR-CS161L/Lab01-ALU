@@ -26,7 +26,7 @@ For now follow these steps either before the actual lab, or during the lab sessi
 ### Installing and using the necessary tools
 
 The tools necessary for this lab, and many future labs, are Icarus Verilog and GTKwave. Think of Icarus Verilog as akin to the compiler of your favorite
-programming language. You'll use it to synthesize (similar to compile) your verilog code into a simulation executable (actually a script that acts like the hardware to allow testing before actually committing to an [ASIC](https://en.wikipedia.org/wiki/Application-specific_integrated_circuit) or [FPGA](https://en.wikipedia.org/wiki/Field-programmable_gate_array] (look those terms up). This script is usually a test-bench that instantiates the modules
+programming language. You'll use it to synthesize (similar to compile) your verilog code into a simulation executable (actually a script that acts like the hardware to allow testing before actually committing to an [ASIC](https://en.wikipedia.org/wiki/Application-specific_integrated_circuit) or [FPGA](https://en.wikipedia.org/wiki/Field-programmable_gate_array) (look those terms up). This script is usually a test-bench that instantiates the modules
 you write in Verilog, and prints out testing/debugging information to the screen, as well as output a capture file that contains information about the
 timings of all the binary signals in your simulation. This file is then read by GTKwave so that you can visualize what happened when your test-bench ran. 
 This visualization is called a waveform. You'll use this throughout the quarter to dive deep into debugging the signals in your hardware designs.
